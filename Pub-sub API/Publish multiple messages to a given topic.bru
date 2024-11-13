@@ -1,0 +1,54 @@
+meta {
+  name: Publish multiple messages to a given topic
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/publish/bulk/:pubsubname/:topic
+  body: json
+  auth: none
+}
+
+params:query {
+  ~metadata.{{metadata_key}}: {{metadata_value}}
+  ~metadata.rawPayload: {{rawPayload}}
+  ~metadata.maxBulkPubBytes: {{maxBulkPubBytes}}
+}
+
+params:path {
+  pubsubname: {{pubSubName}}
+  topic: {{topic}}
+}
+
+body:json {
+  [
+      {
+          "entryId": "{{id1}}",
+          "event": "{{message1}}",
+          "contentType": "text/plain"
+      },
+      {
+          "entryId": "{{id2}}",
+          "event": {
+              "message": "{{message2}}"
+          },
+          "contentType": "application/json"
+      }
+  ]
+}
+
+docs {
+  his endpoint lets you publish multiple messages to consumers who are listening on a `topic`.
+  
+  The request body should contain a JSON array of entries with:
+  
+  - Unique entry IDs
+      
+  - The event to publish
+      
+  - The content type of the event
+      
+  
+  If the content type for an event is not `application/cloudevents+json`, it is auto-wrapped as a CloudEvent (unless `metadata.rawPayload` is set to `true`).
+}

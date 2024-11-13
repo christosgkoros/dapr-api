@@ -1,0 +1,41 @@
+meta {
+  name: Save state
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/state/:storeName?metadata.{{metadata_key}}={{metadata_value}}
+  body: json
+  auth: none
+}
+
+params:query {
+  metadata.{{metadata_key}}: {{metadata_value}}
+}
+
+params:path {
+  storeName: {{storeName}}
+}
+
+body:json {
+  [
+      {
+          "key": "{{key}}",
+          "value": "{{deathStar}}",
+          "etag": "{{etag}}",
+          "metadata": "{{metadata}}",
+          "options": "{{options}}"
+      }
+  ]
+}
+
+docs {
+  This endpoint lets you save an array of state objects
+  
+  | `key` | State key |
+  | `value` | State value, which can be any byte array |
+  | `etag` | (optional) State ETag |
+  | `metadata` | (optional) Additional key-value pairs to be passed to the state store |
+  | `options` | (optional) State operation options; see [state operation options](https://docs.dapr.io/reference/api/state_api/#optional-behaviors) |
+}

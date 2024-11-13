@@ -1,0 +1,31 @@
+meta {
+  name: Get state
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:{{daprPort}}/placement/state
+  body: none
+  auth: none
+}
+
+docs {
+  The placement table API can be used for retrieving the current placement table, which contains all the actors registered. This can be helpful for debugging and allows tools to extract and present information about actors.  
+    
+  **Placement tables API Response Object**
+  
+  | Name | Type | Description |
+  | --- | --- | --- |
+  | tableVersion | int | The placement table version |
+  | hostList | [Actor Host Info](https://github.com/dapr/docs/blob/v1.14/daprdocs/content/en/reference/api/placement_api.md#actorhostinfo)\[\] | A json array of registered actors host info. |
+  
+  **Actor Host Info**
+  
+  | Name | Type | Description |
+  | --- | --- | --- |
+  | name | string | The host:port address of the actor. |
+  | appId | string | app id. |
+  | actorTypes | json string array | List of actor types it hosts. |
+  | updatedAt | timestamp | Timestamp of the actor registered/updated. |
+}

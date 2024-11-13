@@ -1,0 +1,38 @@
+meta {
+  name: Create actor reminder
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/actors/:actorType/:actorId/reminders/:name
+  body: json
+  auth: none
+}
+
+params:path {
+  actorType: {{actorType}}
+  actorId: {{actorId}}
+  name: {{reminderName}}
+}
+
+body:json {
+  {
+      "data": "{{someData}}",
+      "dueTime": "1m",
+      "period": "20s"
+  }
+}
+
+docs {
+  Creates a persistent reminder for an actor.
+  
+  #### Reminder request body
+  
+  A JSON object with the following fields:
+  
+  | Field | Description |
+  | --- | --- |
+  | `dueTime` | Specifies the time after which the reminder is invoked. Its format should be [time.ParseDuration](https://pkg.go.dev/time#ParseDuration) |
+  | `period` | Specifies the period between different invocations. Its format should be [time.ParseDuration](https://pkg.go.dev/time#ParseDuration) or ISO 8601 duration format with optional recurrence. |
+}

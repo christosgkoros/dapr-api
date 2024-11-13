@@ -1,0 +1,23 @@
+meta {
+  name: Get Configuration
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/configuration/:storename?key={{config_key}}
+  body: none
+  auth: none
+}
+
+params:query {
+  key: {{config_key}}
+}
+
+params:path {
+  storename: {{configStoreName}}
+}
+
+docs {
+  This endpoint lets you get configuration from a store.
+}

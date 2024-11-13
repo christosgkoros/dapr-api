@@ -1,0 +1,21 @@
+meta {
+  name: Get actor state
+  type: http
+  seq: 7
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/actors/:actorType/:actorId/state/:key
+  body: json
+  auth: none
+}
+
+params:path {
+  actorType: {{actorType}}
+  actorId: {{actorId}}
+  key: {{key}}
+}
+
+docs {
+  Gets the state for an actor using a specified key.
+}

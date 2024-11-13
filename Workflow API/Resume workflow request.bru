@@ -1,0 +1,20 @@
+meta {
+  name: Resume workflow request
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/resume
+  body: json
+  auth: none
+}
+
+params:path {
+  workflowComponentName: {{workflowComponent}}
+  instanceID: {{instanceID}}
+}
+
+docs {
+  Resume a paused workflow instance.
+}

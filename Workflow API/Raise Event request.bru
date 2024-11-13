@@ -1,0 +1,25 @@
+meta {
+  name: Raise Event request
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/raiseEvent/:eventName
+  body: json
+  auth: none
+}
+
+params:path {
+  workflowComponentName: {{workflowComponent}}
+  instanceID: {{instanceID}}
+  eventName: {{eventName}}
+}
+
+docs {
+  For workflow components that support subscribing to external events, such as the Dapr Workflow engine, you can use the following “raise event” API to deliver a named event to a specific workflow instance.
+  
+  #### Note
+  
+  The exact mechanism for subscribing to an event depends on the workflow component that you’re using. Dapr Workflow has one way of subscribing to external events but other workflow components might have different ways.
+}

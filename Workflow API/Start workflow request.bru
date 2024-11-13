@@ -1,0 +1,32 @@
+meta {
+  name: Start workflow request
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:workflowName/start?instanceID={{instanceID}}
+  body: json
+  auth: none
+}
+
+params:query {
+  instanceID: {{instanceID}}
+}
+
+params:path {
+  workflowComponentName: {{workflowComponent}}
+  workflowName: {{workflow}}
+}
+
+body:json {
+  {
+      "{{key}}": "{{value}}"
+  }
+}
+
+docs {
+  Start a workflow instance with the given name and optionally, an instance ID.
+  
+  Note that workflow instance IDs can only contain alphanumeric characters, underscores, and dashes.
+}

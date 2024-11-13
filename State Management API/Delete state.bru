@@ -1,0 +1,30 @@
+meta {
+  name: Delete state
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:{{daprPort}}/v1.0/state/:storeName/:key
+  body: none
+  auth: none
+}
+
+params:query {
+  ~consistency: {{consistency}}
+  ~metadata.{{metadata_key}}: {{metadata_value}}
+  ~concurrency: {{concurrency}}
+}
+
+params:path {
+  storeName: {{storename}}
+  key: {{key}}
+}
+
+headers {
+  ~If-Match: {{if_match_delete}}
+}
+
+docs {
+  This endpoint lets you delete the state for a specific key.
+}

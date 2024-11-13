@@ -1,0 +1,20 @@
+meta {
+  name: Terminate workflow request
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/terminate
+  body: json
+  auth: none
+}
+
+params:path {
+  workflowComponentName: {{workflowComponent}}
+  instanceID: {{instanceID}}
+}
+
+docs {
+  Terminate a running workflow instance with the given name and instance ID.
+}

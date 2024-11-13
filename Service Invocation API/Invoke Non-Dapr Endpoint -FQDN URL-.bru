@@ -1,0 +1,20 @@
+meta {
+  name: Invoke Non-Dapr Endpoint -FQDN URL-
+  type: http
+  seq: 11
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/invoke/:FQDN URL/method/:methodName
+  body: none
+  auth: none
+}
+
+params:path {
+  FQDN URL: {{fqdnUrl}}
+  methodName: {{methodName}}
+}
+
+docs {
+  This endpoint lets you invoke a method on a non-Dapr endpoint using a Fully Qualified Domain Name (FQDN) URL.
+}

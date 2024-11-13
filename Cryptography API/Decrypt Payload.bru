@@ -1,0 +1,23 @@
+meta {
+  name: Decrypt Payload
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:{{daprPort}}/v1.0/crypto/:crypto-store-name/decrypt
+  body: none
+  auth: none
+}
+
+params:path {
+  crypto-store-name: {{cryptoStoreName}}
+}
+
+headers {
+  dapr-key-name: {{dapr-key-name}}
+}
+
+docs {
+  This endpoint lets you decrypt a value provided as a byte array using a specified key and crypto component.
+}

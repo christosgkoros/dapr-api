@@ -1,0 +1,37 @@
+meta {
+  name: Get bulk state
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/state/:storeName/bulk
+  body: json
+  auth: none
+}
+
+params:query {
+  ~metadata.{{metadata_key}}: {{metadata_value}}
+}
+
+params:path {
+  storeName: {{storename}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "keys": [
+          "{{key1}}",
+          "{{key2}}"
+      ],
+      "parallelism": {{parallelismNo}}
+  }
+}
+
+docs {
+  This endpoint lets you get a list of values for a given list of keys.
+}

@@ -1,0 +1,41 @@
+meta {
+  name: Actor states transactions
+  type: http
+  seq: 5
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/actors/:actorType/:actorId/state
+  body: json
+  auth: none
+}
+
+params:path {
+  actorType: {{actorType}}
+  actorId: {{actorId}}
+}
+
+body:json {
+  [
+      {
+          "operation": "{{operation1}}",
+          "request": {
+              "key": "{{key1}}",
+              "value": "{{myData}}",
+              "metadata": {
+                  "ttlInSeconds": "3600"
+              }
+          }
+      },
+      {
+          "operation": "{{operation2}}",
+          "request": {
+              "key": "{{key2}}"
+          }
+      }
+  ]
+}
+
+docs {
+  Persists the change to the state for an actor as a multi-item transaction.
+}

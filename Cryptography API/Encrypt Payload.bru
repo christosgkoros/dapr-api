@@ -1,0 +1,27 @@
+meta {
+  name: Encrypt Payload
+  type: http
+  seq: 1
+}
+
+put {
+  url: http://localhost:{{daprPort}}/v1.0/crypto/:crypto-store-name/encrypt
+  body: none
+  auth: none
+}
+
+params:path {
+  crypto-store-name: {{cryptoStoreName}}
+}
+
+headers {
+  dapr-key-name: {{dapr-key-name}}
+  dapr-key-wrap-algorithm: {{dapr-key-wrap-algorithm}}
+  dapr-omit-decryption-key-name: {{dapr-omit-decryption-key-name}}
+  dapr-decryption-key-name: {{dapr-decryption-key-name}}
+  dapr-data-encryption-cipher: {{dapr-data-encryption-cipher}}
+}
+
+docs {
+  This endpoint lets you encrypt a value provided as a byte array using a specified key and crypto component.
+}

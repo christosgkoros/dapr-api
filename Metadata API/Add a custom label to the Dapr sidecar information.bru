@@ -1,0 +1,27 @@
+meta {
+  name: Add a custom label to the Dapr sidecar information
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:{{daprPort}}/v1.0/metadata/:attributeName
+  body: text
+  auth: none
+}
+
+params:path {
+  attributeName: {{attributeName}}
+}
+
+body:text {
+  {{attributeValue}}
+}
+
+docs {
+  Adds a custom label to the Dapr sidecar information stored by the Metadata endpoint.
+  
+  ### Usecase:
+  
+  The metadata endpoint is, for example, used by the Dapr CLI when running dapr in self hosted mode to store the PID of the process hosting the sidecar and store the command used to run the application. Applications can also add attributes as keys after startup.
+}

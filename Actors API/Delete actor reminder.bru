@@ -1,0 +1,21 @@
+meta {
+  name: Delete actor reminder
+  type: http
+  seq: 11
+}
+
+delete {
+  url: http://localhost:{{daprPort}}/v1.0/actors/:actorType/:actorId/reminders/:name
+  body: json
+  auth: none
+}
+
+params:path {
+  actorType: {{actorType}}
+  actorId: {{actorId}}
+  name: {{reminderName}}
+}
+
+docs {
+  Deletes a reminder for an actor.
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Subscribe Configuration
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/configuration/:storename/subscribe?key={{config_key}}
+  body: none
+  auth: none
+}
+
+params:query {
+  key: {{config_key}}
+}
+
+params:path {
+  storename: {{configStoreName}}
+}
+
+docs {
+  This endpoint lets you subscribe to configuration changes. Notifications happen when values are updated or deleted in the configuration store. This enables the application to react to configuration changes.
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Invoke Non-Dapr Endpoint -HTTPEndpoint name-_4
+  type: http
+  seq: 10
+}
+
+delete {
+  url: http://localhost:{{daprPort}}/v1.0/invoke/:HTTPEndpoint name/method/:methodName
+  body: none
+  auth: none
+}
+
+params:path {
+  HTTPEndpoint name: {{httpEndpointName}}
+  methodName: {{methodName}}
+}
+
+docs {
+  This endpoint lets you invoke a method on a non-Dapr endpoint using an `HTTPEndpoint` resource name.
+}

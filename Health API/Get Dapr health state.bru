@@ -1,0 +1,15 @@
+meta {
+  name: Get Dapr health state
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/healthz
+  body: none
+  auth: none
+}
+
+docs {
+  Gets the health state for Dapr.
+}

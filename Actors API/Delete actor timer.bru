@@ -1,0 +1,30 @@
+meta {
+  name: Delete actor timer
+  type: http
+  seq: 14
+}
+
+delete {
+  url: http://localhost:{{daprPort}}/v1.0/actors/:actorType/:actorId/timers/:name
+  body: json
+  auth: none
+}
+
+params:path {
+  actorType: {{actorType}}
+  actorId: {{actorId}}
+  name: {{timerName}}
+}
+
+body:json {
+  {
+      "data": "{{someData}}",
+      "dueTime": "1m",
+      "period": "20s",
+      "callback": "{{myEventHandler}}"
+  }
+}
+
+docs {
+  Deletes a timer for an actor.
+}

@@ -1,0 +1,32 @@
+meta {
+  name: Publish a message to a given topic
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/publish/:pubsubname/:topic?metadata.{{metadata_key}}={{metadata_value}}&metadata.ttlInSeconds={{ttlInSeconds}}&metadata.rawPayload={{rawPayload}}
+  body: json
+  auth: none
+}
+
+params:query {
+  metadata.{{metadata_key}}: {{metadata_value}}
+  metadata.ttlInSeconds: {{ttlInSeconds}}
+  metadata.rawPayload: {{rawPayload}}
+}
+
+params:path {
+  pubsubname: {{pubSubName}}
+  topic: {{topic}}
+}
+
+body:json {
+  {
+      "{{message_key}}": "{{value}}"
+  }
+}
+
+docs {
+  This endpoint lets you publish data to multiple consumers who are listening on a `topic`. Dapr guarantees At-Least-Once semantics for this endpoint.
+}

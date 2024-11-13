@@ -1,0 +1,74 @@
+meta {
+  name: Query state -ALPHA-_1
+  type: http
+  seq: 7
+}
+
+put {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/state/:storeName/query
+  body: json
+  auth: none
+}
+
+params:query {
+  ~metadata.{{metadata_key}}: {{metadata_value}}
+}
+
+params:path {
+  storeName: {{storename}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "filter": {
+          "OR": [
+              {
+                  "EQ": {
+                      "{{or_key}}": "{{or_value}}"
+                  }
+              },
+              {
+                  "AND": [
+                      {
+                          "EQ": {
+                              "{{and_key}}": "{{and_value}}"
+                          }
+                      },
+                      {
+                          "IN": {
+                              "state": [
+                                  "{{in_1}}",
+                                  "{{in_2}}"
+                              ]
+                          }
+                      }
+                  ]
+              }
+          ]
+      },
+      "sort": [
+          {
+              "key": "{{sort_key}}",
+              "order": "DESC"
+          },
+          {
+              "key": "{{sort_key_2}}"
+          }
+      ],
+      "page": {
+          "limit": 3
+      }
+  }
+}
+
+docs {
+  This endpoint lets you query the key/value state.
+  
+  #### alpha
+  
+  This API is in alpha stage.
+}

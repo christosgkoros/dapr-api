@@ -1,0 +1,19 @@
+meta {
+  name: Get job data
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name
+  body: none
+  auth: none
+}
+
+params:path {
+  name: {{name}}
+}
+
+docs {
+  Get a job from its name.
+}

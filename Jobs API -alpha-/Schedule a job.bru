@@ -1,0 +1,69 @@
+meta {
+  name: Schedule a job
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name
+  body: json
+  auth: none
+}
+
+params:path {
+  name: {{name}}
+}
+
+body:json {
+  {
+    "job": {
+        "data": {
+            "@type": "{{expression_type}}",
+            "expression": "{{expression}}"
+        },
+        "dueTime": "{{dueTime}}"
+    }
+  }
+}
+
+docs {
+  Schedule a job with a name.
+  
+  | Parameter | Description |
+  | --- | --- |
+  | `name` | Name of the job you're scheduling |
+  | `data` | A JSON serialized value or object. |
+  | `schedule` | An optional schedule at which the job is to be run. Details of the format are below. |
+  | `dueTime` | An optional time at which the job should be active, or the "one shot" time, if other scheduling type fields are not provided. Accepts a "point in time" string in the format of RFC3339, Go duration string (calculated from creation time), or non-repeating ISO8601. |
+  | `repeats` | An optional number of times in which the job should be triggered. If not set, the job runs indefinitely or until expiration. |
+  | `ttl` | An optional time to live or expiration of the job. Accepts a "point in time" string in the format of RFC3339, Go duration string (calculated from job creation time), or non-repeating ISO8601. |
+  
+  #### schedule
+  
+  `schedule` accepts both systemd timer-style cron expressions, as well as human readable '@' prefixed period strings, as defined below.
+  
+  Systemd timer style cron accepts 6 fields:
+  
+  | seconds | minutes | hours | day of month | month | day of week |
+  | --- | --- | --- | --- | --- | --- |
+  | 0-59 | 0-59 | 0-23 | 1-31 | 1-12/jan-dec | 0-6/sun-sat |
+  
+  ##### Example 1
+  
+  "0 30 \* \* \* \*" - every hour on the half hour
+  
+  ##### Example 2
+  
+  "0 15 3 \* \* \*" - every day at 03:15
+  
+  Period string expressions:
+  
+  | Entry | Description | Equivalent To |
+  | --- | --- | --- |
+  | @every | Run every (e.g. '@every 1h30m') | N/A |
+  | @yearly (or @annually) | Run once a year, midnight, Jan. 1st | 0 0 0 1 1 \* |
+  | @monthly | Run once a month, midnight, first of month | 0 0 0 1 \* \* |
+  | @weekly | Run once a week, midnight on Sunday | 0 0 0 \* \* 0 |
+  | @daily (or @midnight) | Run once a day, midnight | 0 0 0 \* \* \* |
+  | @hourly | Run once an hour, beginning of hour | 0 0 \* \* \* \* |
+}

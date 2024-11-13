@@ -1,0 +1,21 @@
+meta {
+  name: Invoke actor method_1
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/actors/:actorType/:actorId/method/:method
+  body: none
+  auth: none
+}
+
+params:path {
+  actorType: {{actorType}}
+  actorId: {{actorId}}
+  method: {{method}}
+}
+
+docs {
+  Invoke an actor method through Dapr.
+}

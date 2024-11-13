@@ -1,0 +1,73 @@
+meta {
+  name: State transactions
+  type: http
+  seq: 8
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/state/:storeName/transaction
+  body: json
+  auth: none
+}
+
+params:path {
+  storeName: {{storename}}
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "operations": [
+          {
+              "operation": "{{operation1}}",
+              "request": {
+                  "key": "{{key1}}",
+                  "value": "{{myData}}"
+              }
+          },
+          {
+              "operation": "{{operation_2}}",
+              "request": {
+                  "key": "{{key2}}"
+              }
+          }
+      ],
+      "metadata": {
+          "partitionKey": "{{key}}"
+      }
+  }
+}
+
+docs {
+  Persists the changes to the state store as a [transactional operation](https://docs.dapr.io/developing-applications/building-blocks/state-management/state-management-overview/#transactional-operations).
+  
+  > &lt;p &gt;This API depends on a state store component that supports transactions.&lt;/p&gt; 
+    
+  
+  Refer to the [state store component spec](https://docs.dapr.io/reference/components-reference/supported-state-stores/) for a full, current list of state stores that support transactions.
+  
+  | Field | Description |
+  | --- | --- |
+  | `operations` | A JSON array of state `operation` |
+  | `metadata` | (optional) The `metadata` for the transaction that applies to all operations |
+  
+  All transactional databases implement the following required operations:
+  
+  | Operation | Description |
+  | --- | --- |
+  | `upsert` | Adds or updates the value |
+  | `delete` | Deletes the value |
+  
+  Each operation has an associated `request` that is comprised of the following fields:
+  
+  | Request | Description |
+  | --- | --- |
+  | `key` | State key |
+  | `value` | State value, which can be any byte array |
+  | `etag` | (optional) State ETag |
+  | `metadata` | (optional) Additional key-value pairs to be passed to the state store that apply for this operation |
+  | `options` | (optional) State operation options; see [state operation options](https://docs.dapr.io/reference/api/state_api/#optional-behaviors) |
+}

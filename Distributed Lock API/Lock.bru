@@ -1,0 +1,33 @@
+meta {
+  name: Lock
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/lock/:storename
+  body: json
+  auth: none
+}
+
+params:path {
+  storename: {{storeName}}
+}
+
+body:json {
+  {
+      "resourceId": "{{resourceId}}",
+      "lockOwner": "{{lockOwner}}",
+      "expiryInSeconds": 0
+  }
+}
+
+docs {
+  This endpoint lets you acquire a lock by supplying a named lock owner and the resource ID to lock.
+  
+  | Field | Description |
+  | --- | --- |
+  | resourceId | The ID of the resource to lock. Can be any value |
+  | lockOwner | The name of the lock owner. Should be set to a unique value per-request |
+  | expiryInSeconds | The time in seconds to hold the lock before it expires |
+}

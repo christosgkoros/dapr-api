@@ -1,0 +1,20 @@
+meta {
+  name: Invoke Dapr Endpoint
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/invoke/:appId/method/:methodName
+  body: none
+  auth: none
+}
+
+params:path {
+  appId: {{appID}}
+  methodName: {{methodName}}
+}
+
+docs {
+  This endpoint lets you invoke a method in another Dapr enabled app.
+}

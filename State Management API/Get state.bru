@@ -1,0 +1,25 @@
+meta {
+  name: Get state
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/state/:storeName/:key
+  body: none
+  auth: none
+}
+
+params:query {
+  ~consistency: {{consistency}}
+  ~metadata.{{metadata_key}}: {{metadata_value}}
+}
+
+params:path {
+  storeName: {{storename}}
+  key: {{key}}
+}
+
+docs {
+  This endpoint lets you get the state for a specific key.
+}

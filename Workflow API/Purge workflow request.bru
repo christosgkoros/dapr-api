@@ -1,0 +1,22 @@
+meta {
+  name: Purge workflow request
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/purge
+  body: json
+  auth: none
+}
+
+params:path {
+  workflowComponentName: {{workflowComponent}}
+  instanceID: {{instanceID}}
+}
+
+docs {
+  Purge the workflow state from your state store with the workflow’s instance ID.
+  
+  Only `COMPLETED`, `FAILED`, or `TERMINATED` workflows can be purged.
+}

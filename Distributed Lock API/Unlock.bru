@@ -1,0 +1,35 @@
+meta {
+  name: Unlock
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0-alpha1/unlock/:storename
+  body: json
+  auth: none
+}
+
+params:path {
+  storename: {{storeName}}
+}
+
+body:json {
+  {
+      "resourceId": "{{resourceId}}",
+      "lockOwner": "{{lockOwner}}"
+  }
+}
+
+docs {
+  This endpoint lets you unlock an existing lock based on the lock owner and resource Id.
+  
+  The `status` field contains the following response codes:
+  
+  | Code | Description |
+  | --- | --- |
+  | 0 | Success |
+  | 1 | Lock doesn’t exist |
+  | 2 | Lock belongs to another owner |
+  | 3 | Internal error |
+}

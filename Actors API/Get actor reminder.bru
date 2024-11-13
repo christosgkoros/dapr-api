@@ -1,0 +1,21 @@
+meta {
+  name: Get actor reminder
+  type: http
+  seq: 10
+}
+
+get {
+  url: http://localhost:{{daprPort}}/v1.0/actors/:actorType/:actorId/reminders/:name
+  body: json
+  auth: none
+}
+
+params:path {
+  actorType: {{actorType}}
+  actorId: {{actorId}}
+  name: {{reminderName}}
+}
+
+docs {
+  Gets a reminder for an actor.
+}

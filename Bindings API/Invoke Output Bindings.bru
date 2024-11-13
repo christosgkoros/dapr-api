@@ -1,0 +1,25 @@
+meta {
+  name: Invoke Output Bindings
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:{{daprPort}}/v1.0/bindings/:name
+  body: json
+  auth: none
+}
+
+params:path {
+  name: 
+}
+
+body:json {
+  {
+      "data": "{{data}}",
+      "metadata": {
+          "{{key}}": "{{value}}"
+      },
+      "operation": "{{operation}}"
+  }
+}
