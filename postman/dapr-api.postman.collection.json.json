@@ -3633,14 +3633,14 @@
 							"file": {}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0/crypto/:crypto-store-name/encrypt",
+							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/:crypto-store-name/encrypt",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0",
+								"v1.0-alpha1",
 								"crypto",
 								":crypto-store-name",
 								"encrypt"
@@ -3698,14 +3698,14 @@
 									"file": {}
 								},
 								"url": {
-									"raw": "http://localhost:{{daprPort}}/v1.0/crypto/<crypto-store-name>/encrypt?crypto-store-name={{cryptoStoreName}}",
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/<crypto-store-name>/encrypt?crypto-store-name={{cryptoStoreName}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{daprPort}}",
 									"path": [
-										"v1.0",
+										"v1.0-alpha1",
 										"crypto",
 										"<crypto-store-name>",
 										"encrypt"
@@ -3776,14 +3776,14 @@
 									"file": {}
 								},
 								"url": {
-									"raw": "http://localhost:{{daprPort}}/v1.0/crypto/<crypto-store-name>/encrypt?crypto-store-name={{cryptoStoreName}}",
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/<crypto-store-name>/encrypt?crypto-store-name={{cryptoStoreName}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{daprPort}}",
 									"path": [
-										"v1.0",
+										"v1.0-alpha1",
 										"crypto",
 										"<crypto-store-name>",
 										"encrypt"
@@ -3847,14 +3847,14 @@
 									"file": {}
 								},
 								"url": {
-									"raw": "http://localhost:{{daprPort}}/v1.0/crypto/<crypto-store-name>/encrypt?crypto-store-name={{cryptoStoreName}}",
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/<crypto-store-name>/encrypt?crypto-store-name={{cryptoStoreName}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{daprPort}}",
 									"path": [
-										"v1.0",
+										"v1.0-alpha1",
 										"crypto",
 										"<crypto-store-name>",
 										"encrypt"
@@ -3893,14 +3893,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0/crypto/:crypto-store-name/decrypt",
+							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/:crypto-store-name/decrypt",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0",
+								"v1.0-alpha1",
 								"crypto",
 								":crypto-store-name",
 								"decrypt"
@@ -3930,14 +3930,14 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:{{daprPort}}/v1.0/crypto/<crypto-store-name>/decrypt?crypto-store-name={{cryptoStoreName}}",
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/<crypto-store-name>/decrypt?crypto-store-name={{cryptoStoreName}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{daprPort}}",
 									"path": [
-										"v1.0",
+										"v1.0-alpha1",
 										"crypto",
 										"<crypto-store-name>",
 										"decrypt"
@@ -3980,14 +3980,14 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:{{daprPort}}/v1.0/crypto/<crypto-store-name>/decrypt?crypto-store-name={{cryptoStoreName}}",
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/<crypto-store-name>/decrypt?crypto-store-name={{cryptoStoreName}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{daprPort}}",
 									"path": [
-										"v1.0",
+										"v1.0-alpha1",
 										"crypto",
 										"<crypto-store-name>",
 										"decrypt"
@@ -4030,14 +4030,14 @@
 									}
 								],
 								"url": {
-									"raw": "http://localhost:{{daprPort}}/v1.0/crypto/<crypto-store-name>/decrypt?crypto-store-name={{cryptoStoreName}}",
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/crypto/<crypto-store-name>/decrypt?crypto-store-name={{cryptoStoreName}}",
 									"protocol": "http",
 									"host": [
 										"localhost"
 									],
 									"port": "{{daprPort}}",
 									"path": [
-										"v1.0",
+										"v1.0-alpha1",
 										"crypto",
 										"<crypto-store-name>",
 										"decrypt"
