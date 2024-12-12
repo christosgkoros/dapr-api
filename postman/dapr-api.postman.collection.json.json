@@ -5422,7 +5422,7 @@
 				}
 			],
 			"id": "ad189698-d925-490b-b745-f471b9910ff7",
-			"description": "Detailed documentation on the pub/sub API"
+			"description": "Detailed documentation on the pub/sub API  \n  \nDapr pub/sub adheres to \\[version 1.0 of CloudEvents\\](https://github.com/cloudevents/spec/blob/v1.0/spec.md)."
 		},
 		{
 			"name": "Secrets API",
