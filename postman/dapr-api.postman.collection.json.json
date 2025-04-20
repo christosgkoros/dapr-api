@@ -10661,14 +10661,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:workflowName/start?instanceID={{instanceID}}",
+							"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:workflowName/start?instanceID={{instanceID}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"workflows",
 								":workflowComponentName",
 								":workflowName",
@@ -10916,14 +10916,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/terminate",
+							"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:instanceID/terminate",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"workflows",
 								":workflowComponentName",
 								":instanceID",
@@ -11119,14 +11119,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/raiseEvent/:eventName",
+							"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:instanceID/raiseEvent/:eventName",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"workflows",
 								":workflowComponentName",
 								":instanceID",
@@ -11343,14 +11343,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/pause",
+							"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:instanceID/pause",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"workflows",
 								":workflowComponentName",
 								":instanceID",
@@ -11358,13 +11358,11 @@
 							],
 							"variable": [
 								{
-									"id": "bfe1b609-dfde-4cba-9255-07448c30afaa",
 									"key": "workflowComponentName",
 									"value": "{{workflowComponent}}",
 									"description": "Use dapr for Dapr Workflows"
 								},
 								{
-									"id": "8d8e10be-6e37-4e72-9d93-f611d25bc22b",
 									"key": "instanceID",
 									"value": "{{instanceID}}",
 									"description": "Unique value created for each run of a specific workflow"
@@ -11548,14 +11546,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/resume",
+							"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:instanceID/resume",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"workflows",
 								":workflowComponentName",
 								":instanceID",
@@ -11563,13 +11561,11 @@
 							],
 							"variable": [
 								{
-									"id": "bfe1b609-dfde-4cba-9255-07448c30afaa",
 									"key": "workflowComponentName",
 									"value": "{{workflowComponent}}",
 									"description": "Use dapr for Dapr Workflows"
 								},
 								{
-									"id": "8d8e10be-6e37-4e72-9d93-f611d25bc22b",
 									"key": "instanceID",
 									"value": "{{instanceID}}",
 									"description": "Unique value created for each run of a specific workflow"
@@ -11753,14 +11749,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID/purge",
+							"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:instanceID/purge",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"workflows",
 								":workflowComponentName",
 								":instanceID",
@@ -11768,13 +11764,11 @@
 							],
 							"variable": [
 								{
-									"id": "bfe1b609-dfde-4cba-9255-07448c30afaa",
 									"key": "workflowComponentName",
 									"value": "{{workflowComponent}}",
 									"description": "Use dapr for Dapr Workflows"
 								},
 								{
-									"id": "8d8e10be-6e37-4e72-9d93-f611d25bc22b",
 									"key": "instanceID",
 									"value": "{{instanceID}}",
 									"description": "Unique value created for each run of a specific workflow"
@@ -11958,27 +11952,25 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/workflows/:workflowComponentName/:instanceID",
+							"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:instanceID",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"workflows",
 								":workflowComponentName",
 								":instanceID"
 							],
 							"variable": [
 								{
-									"id": "bfe1b609-dfde-4cba-9255-07448c30afaa",
 									"key": "workflowComponentName",
 									"value": "{{workflowComponent}}",
 									"description": "Use dapr for Dapr Workflows"
 								},
 								{
-									"id": "8d8e10be-6e37-4e72-9d93-f611d25bc22b",
 									"key": "instanceID",
 									"value": "{{instanceID}}",
 									"description": "Unique value created for each run of a specific workflow"
