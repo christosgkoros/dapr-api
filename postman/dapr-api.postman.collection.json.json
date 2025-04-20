@@ -12787,7 +12787,7 @@
 					"response": [
 						{
 							"id": "0148c275-242c-486a-a1c9-b00a7ac1a6e4",
-							"name": "200 OK",
+							"name": "202 Accepted",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
@@ -12835,7 +12835,7 @@
 							],
 							"cookie": [],
 							"responseTime": null,
-							"body": ""
+							"body": "{\n  \"outputs\": [\n    {\n       \"result\": \"Dapr is distribution application runtime ...\",\n       \"parameters\": {}\n    },\n    {\n       \"result\": \"Dapr can help developers ...\",\n       \"parameters\": {}\n    }\n  ]\n}"
 						}
 					]
 				}
