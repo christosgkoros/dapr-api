@@ -12784,7 +12784,60 @@
 						},
 						"description": "This endpoint lets you converse with LLMs."
 					},
-					"response": []
+					"response": [
+						{
+							"id": "0148c275-242c-486a-a1c9-b00a7ac1a6e4",
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"inputs\": [\n    {\n      \"content\": \"What is Dapr?\",\n      \"role\": \"user\",\n      \"scrubPII\": \"true\"\n    }\n  ],\n  \"cacheTTL\": \"10m\",\n  \"scrubPII\": \"true\",\n  \"temperature\": 0.5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/conversation/:llm-name/converse",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{daprPort}}",
+									"path": [
+										"v1.0-alpha1",
+										"conversation",
+										":llm-name",
+										"converse"
+									],
+									"variable": [
+										{
+											"key": "llm-name",
+											"value": "{{llm-name}}",
+											"description": "The name of the LLM component. [See a list of all available conversation components.]({{< ref supported-conversation >}})"
+										}
+									]
+								}
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": ""
+						}
+					]
 				}
 			],
 			"id": "b6a0fd6a-afd0-4281-bfec-0ec779d05405",
