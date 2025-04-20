@@ -3,7 +3,7 @@
 		"_postman_id": "ce93de13-a186-4a2a-b419-1231d4c20e0d",
 		"name": "Dapr API",
 		"description": "_Version: 1.14_\n\n# Error codes\n\nDetailed reference of the Dapr API error codes\n\nFor http calls made to Dapr runtime, when an error is encountered, an error json is returned in http response body. The json contains an error code and an descriptive error message, e.g.\n\n```\n{\n    \"errorCode\": \"ERR_STATE_GET\",\n    \"message\": \"Requested state key does not exist in state store.\"\n}\n\n ```\n\nFollowing table lists the error codes returned by Dapr runtime:\n\n| Error Code | Description |\n| --- | --- |\n| ERR_ACTOR_INSTANCE_MISSING | Error getting an actor instance. This means that actor is now hosted in some other service replica. |\n| ERR_ACTOR_RUNTIME_NOT_FOUND | Error getting the actor instance. |\n| ERR_ACTOR_REMINDER_CREATE | Error creating a reminder for an actor. |\n| ERR_ACTOR_REMINDER_DELETE | Error deleting a reminder for an actor. |\n| ERR_ACTOR_TIMER_CREATE | Error creating a timer for an actor. |\n| ERR_ACTOR_TIMER_DELETE | Error deleting a timer for an actor. |\n| ERR_ACTOR_REMINDER_GET | Error getting a reminder for an actor. |\n| ERR_ACTOR_INVOKE_METHOD | Error invoking a method on an actor. |\n| ERR_ACTOR_STATE_DELETE | Error deleting the state for an actor. |\n| ERR_ACTOR_STATE_GET | Error getting the state for an actor. |\n| ERR_ACTOR_STATE_TRANSACTION_SAVE | Error storing actor state transactionally. |\n| ERR_PUBSUB_NOT_FOUND | Error referencing the Pub/Sub component in Dapr runtime. |\n| ERR_PUBSUB_PUBLISH_MESSAGE | Error publishing a message. |\n| ERR_PUBSUB_FORBIDDEN | Error message forbidden by access controls. |\n| ERR_PUBSUB_CLOUD_EVENTS_SER | Error serializing Pub/Sub event envelope. |\n| ERR_STATE_STORE_NOT_FOUND | Error referencing a state store not found. |\n| ERR_STATE_STORES_NOT_CONFIGURED | Error no state stores configured. |\n| ERR_NOT_SUPPORTED_STATE_OPERATION | Error transaction requested on a state store with no transaction support. |\n| ERR_STATE_GET | Error getting a state for state store. |\n| ERR_STATE_DELETE | Error deleting a state from state store. |\n| ERR_STATE_SAVE | Error saving a state in state store. |\n| ERR_INVOKE_OUTPUT_BINDING | Error invoking an output binding. |\n| ERR_MALFORMED_REQUEST | Error with a malformed request. |\n| ERR_DIRECT_INVOKE | Error in direct invocation. |\n| ERR_DESERIALIZE_HTTP_BODY | Error deserializing an HTTP request body. |\n| ERR_SECRET_STORES_NOT_CONFIGURED | Error that no secret store is configured. |\n| ERR_SECRET_STORE_NOT_FOUND | Error that specified secret store is not found. |\n| ERR_HEALTH_NOT_READY | Error that Dapr is not ready. |\n| ERR_METADATA_GET | Error parsing the Metadata information. |",
-		"schema": "https://schema.postman.com/json/collection/v2.0.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -12739,6 +12739,47 @@
 			],
 			"id": "49c20148-2f10-42c1-bdc1-644b067d2e64",
 			"description": "Dapr has an HTTP API `/placement/state` for Placement service that exposes placement table information. The API is exposed on the sidecar on the same port as the `healthz`. This is an unauthenticated endpoint and is disabled by default.\n\nTo enable the placement metadata in self-hosted mode, you can either set`DAPR_PLACEMENT_METADATA_ENABLED` environment variable or `metadata-enabled` command line args on the Placement service to `true`. See how to run the Placement service in self-hosted mode.\n\n**!!When running placement in multi-tenant mode, disable the** **`metadata-enabled`** **command line args to prevent different namespaces from seeing each other's data.!!!**\n\nIf you are using Helm for the deployment of the Placement service on Kubernetes, then to enable the placement metadata, set `dapr_placement.metadataEnabled` to `true`."
+		},
+		{
+			"name": "Conversation API",
+			"item": [
+				{
+					"name": "Converse",
+					"id": "5909dff2-8b9d-47a7-bfcc-0ee513c1efb0",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/conversation/:llm-name/converse",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{daprPort}}",
+							"path": [
+								"v1.0-alpha1",
+								"conversation",
+								":llm-name",
+								"converse"
+							],
+							"variable": [
+								{
+									"key": "llm-name",
+									"value": "{{llm-name}}",
+									"description": "The name of the LLM component. [See a list of all available conversation components.]({{< ref supported-conversation >}})"
+								}
+							]
+						},
+						"description": "This endpoint lets you converse with LLMs."
+					},
+					"response": []
+				}
+			],
+			"id": "b6a0fd6a-afd0-4281-bfec-0ec779d05405",
+			"description": "_The conversation API is currently in \\[alpha\\]_\n\nDapr provides an API to interact with Large Language Models (LLMs) and enables critical performance and security functionality with features like prompt caching and PII data obfuscation."
 		}
 	]
 }
