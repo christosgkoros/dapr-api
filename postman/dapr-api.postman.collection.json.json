@@ -12778,7 +12778,7 @@
 								{
 									"key": "llm-name",
 									"value": "{{llm-name}}",
-									"description": "The name of the LLM component. [See a list of all available conversation components.]({{< ref supported-conversation >}})"
+									"description": "The name of the LLM component.[See all available models](https://docs.dapr.io/reference/components-reference/supported-conversation/)"
 								}
 							]
 						},
@@ -12836,6 +12836,110 @@
 							"cookie": [],
 							"responseTime": null,
 							"body": "{\n  \"outputs\": [\n    {\n       \"result\": \"Dapr is distribution application runtime ...\",\n       \"parameters\": {}\n    },\n    {\n       \"result\": \"Dapr can help developers ...\",\n       \"parameters\": {}\n    }\n  ]\n}"
+						},
+						{
+							"id": "a5f0d8bf-3d89-4b36-ba2b-7786b8179700",
+							"name": "400 Request was malformed",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"inputs\": [\n    {\n      \"content\": \"What is Dapr?\",\n      \"role\": \"user\",\n      \"scrubPII\": \"true\"\n    }\n  ],\n  \"cacheTTL\": \"10m\",\n  \"scrubPII\": \"true\",\n  \"temperature\": 0.5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/conversation/:llm-name/converse",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{daprPort}}",
+									"path": [
+										"v1.0-alpha1",
+										"conversation",
+										":llm-name",
+										"converse"
+									],
+									"variable": [
+										{
+											"key": "llm-name",
+											"value": "{{llm-name}}",
+											"description": "The name of the LLM component. [See a list of all available conversation components.]({{< ref supported-conversation >}})"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": ""
+						},
+						{
+							"id": "a2dc1901-d067-40d0-9f94-9205f09a2b95",
+							"name": "500 Request formatted correctly",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"inputs\": [\n    {\n      \"content\": \"What is Dapr?\",\n      \"role\": \"user\",\n      \"scrubPII\": \"true\"\n    }\n  ],\n  \"cacheTTL\": \"10m\",\n  \"scrubPII\": \"true\",\n  \"temperature\": 0.5\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/conversation/:llm-name/converse",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{daprPort}}",
+									"path": [
+										"v1.0-alpha1",
+										"conversation",
+										":llm-name",
+										"converse"
+									],
+									"variable": [
+										{
+											"key": "llm-name",
+											"value": "{{llm-name}}",
+											"description": "The name of the LLM component. [See a list of all available conversation components.]({{< ref supported-conversation >}})"
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json",
+									"description": "",
+									"type": "text"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": ""
 						}
 					]
 				}
