@@ -12528,7 +12528,25 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "http://localhost:{{daprPort}}/v1.0-alpha1/jobs/<name> ",
+						"url": {
+							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name>",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{daprPort}}",
+							"path": [
+								"v1.0-alpha1",
+								"jobs",
+								":name>"
+							],
+							"variable": [
+								{
+									"key": "name>",
+									"value": ""
+								}
+							]
+						},
 						"description": "Delete a named job."
 					},
 					"response": [
