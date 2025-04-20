@@ -12529,7 +12529,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name>",
+							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -12538,12 +12538,13 @@
 							"path": [
 								"v1.0-alpha1",
 								"jobs",
-								":name>"
+								":name"
 							],
 							"variable": [
 								{
-									"key": "name>",
-									"value": ""
+									"key": "name",
+									"value": "{{name}}",
+									"description": "Name of the scheduled job you're retrieving."
 								}
 							]
 						},
