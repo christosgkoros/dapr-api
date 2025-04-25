@@ -9024,7 +9024,6 @@
 							],
 							"variable": [
 								{
-									"id": "b0347c26-87af-4321-a928-74479bc5cfe1",
 									"key": "storeName",
 									"value": "{{storename}}",
 									"description": "The `metadata.name` field in the user-configured `statestore.yaml` component file. Refer\nto the [Dapr state store configuration structure](https://docs.dapr.io/reference/api/state_api/#component-file)"
