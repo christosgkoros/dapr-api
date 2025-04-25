@@ -9273,7 +9273,6 @@
 							],
 							"variable": [
 								{
-									"id": "b0347c26-87af-4321-a928-74479bc5cfe1",
 									"key": "storeName",
 									"value": "{{storename}}",
 									"description": "The `metadata.name` field in the user-configured `statestore.yaml` component file. Refer\nto the [Dapr state store configuration structure](https://docs.dapr.io/reference/api/state_api/#component-file)"
@@ -9537,13 +9536,11 @@
 							],
 							"variable": [
 								{
-									"id": "bd961e37-1f71-4306-9719-03ecf8bbc2d3",
 									"key": "storeName",
 									"value": "{{storename}}",
 									"description": "The `metadata.name` field in the user-configured `statestore.yaml` component file. Refer\nto the [Dapr state store configuration structure](https://docs.dapr.io/reference/api/state_api/#component-file)"
 								},
 								{
-									"id": "2d577d64-05ab-42d8-beaf-0ba1c4a278e1",
 									"key": "key",
 									"value": "{{key}}",
 									"description": "The key of the desired state"
