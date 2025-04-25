@@ -11968,7 +11968,7 @@
 								}
 							]
 						},
-						"description": "Get information about a given workflow instance.\n\n| Parameter | Description |\n| --- | --- |\n| `runtimeStatus` | The status of the workflow instance. Values include: `RUNNING`, `COMPLETED`, `CONTINUED_AS_NEW`, `FAILED`, `CANCELED`, `TERMINATED`, `PENDING`, `SUSPENDED` |"
+						"description": "Get information about a given workflow instance."
 					},
 					"response": [
 						{
@@ -12019,7 +12019,6 @@
 							"header": [
 								{
 									"key": "Content-Type",
-									"name": "Content-Type",
 									"value": "application/json",
 									"description": "",
 									"type": "text"
@@ -12027,7 +12026,7 @@
 							],
 							"cookie": [],
 							"responseTime": null,
-							"body": "{\n  \"createdAt\": \"2023-01-12T21:31:13Z\",\n  \"instanceID\": \"12345678\",\n  \"lastUpdatedAt\": \"2023-01-12T21:31:13Z\",\n  \"properties\": {\n    \"property1\": \"value1\",\n    \"property2\": \"value2\",\n  },\n  \"runtimeStatus\": \"RUNNING\",\n }"
+							"body": "{\n  \"createdAt\": \"2023-01-12T21:31:13Z\",\n  \"instanceID\": \"12345678\",\n  \"lastUpdatedAt\": \"2023-01-12T21:31:13Z\",\n  \"properties\": {\n    \"property1\": \"value1\",\n    \"property2\": \"value2\"\n  },\n  \"runtimeStatus\": \"RUNNING\"\n }"
 						},
 						{
 							"id": "9989715f-c333-492f-a533-37ed9ede8f97",
