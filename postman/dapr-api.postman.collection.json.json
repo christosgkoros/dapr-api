@@ -12174,7 +12174,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"job\": {\n        \"data\": {\n            \"@type\": \"{{expression_type}}\",\n            \"expression\": \"{{expression}}\"\n        },\n        \"dueTime\": \"{{dueTime}}\"\n    }\n}",
+							"raw": "{\n    \"job\": {\n        \"name\": \"{{name}}\",\n        \"data\": \"{{data}}\",\n        \"schedule\": \"{{schedule}}\",\n        \"dueTime\": \"{{dueTime}}\",\n        \"repeats\": \"{{repeats}}\",\n        \"ttl\": \"{{ttl}}\"\n    }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -12212,7 +12212,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n  \"data\": \"some data\",\n  \"dueTime\": \"30s\"\n}",
+									"raw": "{\n  \"job\": {\n    \"name\": \"backup-job\",\n    \"data\": {\n        \"source\": \"/var/data\",\n        \"destination\": \"/backup/data\"\n    },\n    \"schedule\": \"0 30 * * * *\",\n    \"dueTime\": \"2025-04-30T12:00:00Z\",\n    \"repeats\": 5,\n    \"ttl\": \"2025-05-30T00:00:00Z\"\n    }\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12253,7 +12253,7 @@
 							],
 							"cookie": [],
 							"responseTime": null,
-							"body": "{\n  \"job\": {\n      \"data\": {\n           \"HanSolo\": \"Running spice\"\n      },\n      \"dueTime\": \"30s\"\n  }\n}"
+							"body": "{\n  \"job\": {\n    \"name\": \"backup-job\",\n    \"data\": {\n        \"source\": \"/var/data\",\n        \"destination\": \"/backup/data\"\n    },\n    \"schedule\": \"0 30 * * * *\",\n    \"dueTime\": \"2025-04-30T12:00:00Z\",\n    \"repeats\": 5,\n    \"ttl\": \"2025-05-30T00:00:00Z\"\n    }\n}"
 						},
 						{
 							"id": "cf466bb8-5398-4a79-abe9-7605be60d937",
