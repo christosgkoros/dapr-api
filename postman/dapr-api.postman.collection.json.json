@@ -12174,7 +12174,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"job\": {\n        \"name\": \"{{name}}\",\n        \"data\": \"{{data}}\",\n        \"schedule\": \"{{schedule}}\",\n        \"dueTime\": \"{{dueTime}}\",\n        \"repeats\": \"{{repeats}}\",\n        \"ttl\": \"{{ttl}}\"\n    }\n}",
+							"raw": "{\n\t\"data\": \"{{data}}\",\n\t\"schedule\": \"{{schedule}}\",\n\t\"dueTime\": \"{{dueTime}}\",\n\t\"repeats\": \"{{repeats}}\",\n\t\"ttl\": \"{{ttl}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
