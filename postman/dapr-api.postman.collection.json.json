@@ -3002,7 +3002,7 @@
 					]
 				},
 				{
-					"name": "New Request",
+					"name": "Binding discovery",
 					"id": "d89d4f20-44bc-40b6-99dd-01d6e5f86dc2",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -3027,9 +3027,118 @@
 									"description": "The name of the binding"
 								}
 							]
-						}
+						},
+						"description": "Bindings are discovered from component yaml files. Dapr calls this endpoint on startup to ensure that app can handle this call. If the app doesn’t have the endpoint, Dapr ignores it."
 					},
-					"response": []
+					"response": [
+						{
+							"id": "04525723-60cf-4a0d-a758-c7689a9dbe86",
+							"name": "200 - Success",
+							"originalRequest": {
+								"method": "OPTIONS",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{appPort}}/:name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{appPort}}",
+									"path": [
+										":name"
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "{{bindingName}}",
+											"description": "The name of the binding"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"responseTime": null,
+							"body": ""
+						},
+						{
+							"id": "d42320f3-9875-4424-8ca0-e786a793ae2d",
+							"name": "Not allowed",
+							"originalRequest": {
+								"method": "OPTIONS",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{appPort}}/:name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{appPort}}",
+									"path": [
+										":name"
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "{{bindingName}}",
+											"description": "The name of the binding"
+										}
+									]
+								}
+							},
+							"status": "Method Not Allowed",
+							"code": 405,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"responseTime": null,
+							"body": ""
+						},
+						{
+							"id": "71137497-e986-4c50-baac-3565754d5675",
+							"name": "Application does not want to bind to the binding",
+							"originalRequest": {
+								"method": "OPTIONS",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:{{appPort}}/:name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{appPort}}",
+									"path": [
+										":name"
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "{{bindingName}}",
+											"description": "The name of the binding"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
 				}
 			],
 			"id": "0d469a01-4de3-4aa8-a556-c8bfdb0b41d8",
