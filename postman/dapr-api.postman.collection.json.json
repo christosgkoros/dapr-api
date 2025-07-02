@@ -3003,7 +3003,7 @@
 				}
 			],
 			"id": "0d469a01-4de3-4aa8-a556-c8bfdb0b41d8",
-			"description": "Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings.\n\nExamples for bindings include `Kafka`, `Rabbit MQ`, `Azure Event Hubs`, `AWS SQS`, `GCP Storage` to name a few."
+			"description": "Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings.\n\nExamples for bindings include `Kafka`, `Rabbit MQ`, `Azure Event Hubs`, `AWS SQS`, `GCP Storage` to name a few.  \n  \n**Bindings Structure**\n\nA Dapr Binding yaml file has the following structure:\n\n```\napiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: <NAME>\n  namespace: <NAMESPACE>\nspec:\n  type: bindings.<TYPE>\n  version: v1\n  metadata:\n  - name: <NAME>\n    value: <VALUE>\n\n ```\n\nThe `metadata.name` is the name of the binding.\n\nIf running self hosted locally, place this file in your `components` folder next to your state store and message queue yml configurations.\n\nIf running on kubernetes apply the component to your cluster."
 		},
 		{
 			"name": "Configuration API",
