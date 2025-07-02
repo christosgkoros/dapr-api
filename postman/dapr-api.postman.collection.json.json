@@ -3000,10 +3000,40 @@
 							"body": null
 						}
 					]
+				},
+				{
+					"name": "New Request",
+					"id": "d89d4f20-44bc-40b6-99dd-01d6e5f86dc2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "OPTIONS",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:{{appPort}}/:name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "{{appPort}}",
+							"path": [
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "{{bindingName}}",
+									"description": "The name of the binding"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "0d469a01-4de3-4aa8-a556-c8bfdb0b41d8",
-			"description": "Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings.\n\nExamples for bindings include `Kafka`, `Rabbit MQ`, `Azure Event Hubs`, `AWS SQS`, `GCP Storage` to name a few.  \n  \n**Bindings Structure**\n\nA Dapr Binding yaml file has the following structure:\n\n```\napiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: <NAME>\n  namespace: <NAMESPACE>\nspec:\n  type: bindings.<TYPE>\n  version: v1\n  metadata:\n  - name: <NAME>\n    value: <VALUE>\n\n ```\n\nThe `metadata.name` is the name of the binding.\n\nIf running self hosted locally, place this file in your `components` folder next to your state store and message queue yml configurations.\n\nIf running on kubernetes apply the component to your cluster."
+			"description": "Dapr provides bi-directional binding capabilities for applications and a consistent approach to interacting with different cloud/on-premise services or systems. Developers can invoke output bindings using the Dapr API, and have the Dapr runtime trigger an application with input bindings.\n\nExamples for bindings include `Kafka`, `Rabbit MQ`, `Azure Event Hubs`, `AWS SQS`, `GCP Storage` to name a few.\n\n### Bindings Structure\n\nA Dapr Binding yaml file has the following structure:\n\n```\napiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: <NAME>\n  namespace: <NAMESPACE>\nspec:\n  type: bindings.<TYPE>\n  version: v1\n  metadata:\n  - name: <NAME>\n    value: <VALUE>\n\n ```\n\nThe `metadata.name` is the name of the binding.\n\nIf running self hosted locally, place this file in your `components` folder next to your state store and message queue yml configurations.\n\nIf running on kubernetes apply the component to your cluster.\n\n### Binding direction (optional)\n\nIn some scenarios, it would be useful to provide additional information to Dapr to indicate the direction supported by the binding component.\n\nProviding the binding `direction` helps the Dapr sidecar avoid the `\"wait for the app to become ready\"` state, where it waits indefinitely for the application to become available. This decouples the lifecycle dependency between the Dapr sidecar and the application.\n\nYou can specify the `direction` field as part of the component’s metadata. The valid values for this field are:\n\n- `\"input\"`\n    \n- `\"output\"`\n    \n- `\"input, output\"`\n    \n\n#### Note\n\nIt is highly recommended that all bindings should include the `direction` property.\n\nHere a few scenarios when the `\"direction\"` metadata field could help:\n\n- When an application (detached from the sidecar) runs as a serverless workload and is scaled to zero, the `\"wait for the app to become ready\"` check done by the Dapr sidecar becomes pointless.\n    \n- If the detached Dapr sidecar is scaled to zero and the application reaches the sidecar (before even starting an HTTP server), the `\"wait for the app to become ready\"` deadlocks the app and the sidecar into waiting for each other.\n    \n\n### Example\n\n```\napiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: kafkaevent\nspec:\n  type: bindings.kafka\n  version: v1\n  metadata:\n  - name: brokers\n    value: \"http://localhost:5050\"\n  - name: topics\n    value: \"someTopic\"\n  - name: publishTopic\n    value: \"someTopic2\"\n  - name: consumerGroup\n    value: \"group1\"\n  - name: \"direction\"\n    value: \"input, output\"\n\n ```\n\n## Invoking Service Code Through Input Bindings\n\nA developer who wants to trigger their app using an input binding can listen on a `POST` http endpoint with the route name being the same as `metadata.name`.\n\nOn startup Dapr sends a `OPTIONS` request to the `metadata.name` endpoint and expects a different status code as `NOT FOUND (404)` if this application wants to subscribe to the binding.\n\nThe `metadata` section is an open key/value metadata pair that allows a binding to define connection properties, as well as custom properties unique to the component implementation.\n\n### Examples\n\nFor example, here’s how a Python application subscribes for events from `Kafka` using a Dapr API compliant platform. Note how the metadata.name value `kafkaevent` in the components matches the POST route name in the Python code.\n\n#### Kafka Component\n\n```\napiVersion: dapr.io/v1alpha1\nkind: Component\nmetadata:\n  name: kafkaevent\nspec:\n  type: bindings.kafka\n  version: v1\n  metadata:\n  - name: brokers\n    value: \"http://localhost:5050\"\n  - name: topics\n    value: \"someTopic\"\n  - name: publishTopic\n    value: \"someTopic2\"\n  - name: consumerGroup\n    value: \"group1\"\n\n ```\n\n#### Python Code\n\n```\nfrom flask import Flask\napp = Flask(__name__)\n@app.route(\"/kafkaevent\", methods=['POST'])\ndef incoming():\n    print(\"Hello from Kafka!\", flush=True)\n    return \"Kafka Event Processed!\"\n\n ```"
 		},
 		{
 			"name": "Configuration API",
