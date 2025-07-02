@@ -3010,6 +3010,15 @@
 					"request": {
 						"method": "OPTIONS",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"storeName\": \"stateStore\",\n    \"state\": stateDataToStore,\n\n    \"to\": ['storage', 'queue'],\n    \"concurrency\": \"parallel\",\n    \"data\": {{data}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "http://localhost:{{appPort}}/:name",
 							"protocol": "http",
@@ -3036,7 +3045,22 @@
 							"name": "200 - Success",
 							"originalRequest": {
 								"method": "OPTIONS",
-								"header": [],
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"storeName\": \"stateStore\",\n    \"state\": stateDataToStore,\n\n    \"to\": ['storage', 'queue'],\n    \"concurrency\": \"parallel\",\n    \"data\": jsonObject,\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "http://localhost:{{appPort}}/:name",
 									"protocol": "http",
