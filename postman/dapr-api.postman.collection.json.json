@@ -3041,8 +3041,8 @@
 					},
 					"response": [
 						{
-							"id": "04525723-60cf-4a0d-a758-c7689a9dbe86",
-							"name": "200 - Success",
+							"id": "6de799ea-bbaf-4564-b91c-8356805ebd5c",
+							"name": "With body (optional)",
 							"originalRequest": {
 								"method": "OPTIONS",
 								"header": [
@@ -3093,8 +3093,60 @@
 							"body": ""
 						},
 						{
+							"id": "04525723-60cf-4a0d-a758-c7689a9dbe86",
+							"name": "200 - Success",
+							"originalRequest": {
+								"method": "OPTIONS",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{appPort}}/:name",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{appPort}}",
+									"path": [
+										":name"
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "{{bindingName}}",
+											"description": "The name of the binding"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [],
+							"cookie": [
+								{
+									"expires": "Invalid Date"
+								}
+							],
+							"responseTime": null,
+							"body": ""
+						},
+						{
 							"id": "d42320f3-9875-4424-8ca0-e786a793ae2d",
-							"name": "Not allowed",
+							"name": "405 - Not allowed",
 							"originalRequest": {
 								"method": "OPTIONS",
 								"header": [],
@@ -3131,7 +3183,7 @@
 						},
 						{
 							"id": "71137497-e986-4c50-baac-3565754d5675",
-							"name": "Application does not want to bind to the binding",
+							"name": "404 - Application does not want to bind to the binding",
 							"originalRequest": {
 								"method": "OPTIONS",
 								"header": [],
