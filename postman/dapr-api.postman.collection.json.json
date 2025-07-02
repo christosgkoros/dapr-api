@@ -3012,7 +3012,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"storeName\": \"stateStore\",\n    \"state\": stateDataToStore,\n\n    \"to\": ['storage', 'queue'],\n    \"concurrency\": \"parallel\",\n    \"data\": {{data}}\n}",
+							"raw": "{\n    \"storeName\": \"{{storeName}}\",\n    \"state\": {{state}},\n    \"to\": [{{to}}],\n    \"concurrency\": \"{{concurrency}}\",\n    \"data\": {{data}}\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3054,7 +3054,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"storeName\": \"stateStore\",\n    \"state\": stateDataToStore,\n\n    \"to\": ['storage', 'queue'],\n    \"concurrency\": \"parallel\",\n    \"data\": jsonObject,\n}",
+									"raw": "{\n    \"storeName\": \"stateStore\",\n    \"state\": {},\n\n    \"to\": [\"storage\", \"queue\"],\n    \"concurrency\": \"parallel\",\n    \"data\": {}\n}",
 									"options": {
 										"raw": {
 											"language": "json"
