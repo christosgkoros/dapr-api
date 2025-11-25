@@ -3086,7 +3086,9 @@
 							"header": [],
 							"cookie": [
 								{
-									"expires": "Invalid Date"
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
 								}
 							],
 							"responseTime": null,
@@ -3138,7 +3140,9 @@
 							"header": [],
 							"cookie": [
 								{
-									"expires": "Invalid Date"
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
 								}
 							],
 							"responseTime": null,
@@ -3175,7 +3179,9 @@
 							"header": [],
 							"cookie": [
 								{
-									"expires": "Invalid Date"
+									"expires": "Invalid Date",
+									"domain": "",
+									"path": ""
 								}
 							],
 							"responseTime": null,
