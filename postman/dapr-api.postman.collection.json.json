@@ -4900,6 +4900,52 @@
 							"body": null
 						}
 					]
+				},
+				{
+					"name": "Get Dapr health state (outbound)",
+					"id": "238b8fe1-9bf0-7c9c-6bb9-c417390219bf",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:{{daprPort}}/v1.0/healthz/outbound",
+						"description": "Gets the health state for Dapr (outbound/readiness). This endpoint checks that all components are initialized and the Dapr HTTP port is available, but does not require the app channel to be ready. Used by SDKs for `waitForSidecar`."
+					},
+					"response": [
+						{
+							"id": "41ebd67f-bc43-0379-618d-6f607cbe987a",
+							"name": "204\tdapr is healthy (outbound)",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:{{daprPort}}/v1.0/healthz/outbound",
+								"description": "Gets the health state for Dapr (outbound/readiness). This endpoint checks that all components are initialized and the Dapr HTTP port is available, but does not require the app channel to be ready. Used by SDKs for `waitForSidecar`."
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "98d0f633-faa4-d6b7-db74-2f86ec1a25c6",
+							"name": "500\tdapr is not healthy",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:{{daprPort}}/v1.0/healthz/outbound",
+								"description": "Gets the health state for Dapr (outbound/readiness). This endpoint checks that all components are initialized and the Dapr HTTP port is available, but does not require the app channel to be ready. Used by SDKs for `waitForSidecar`."
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
 				}
 			],
 			"id": "18994e21-baab-4692-ad75-0cb08e295c47",
@@ -5362,14 +5408,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/publish/bulk/:pubsubname/:topic",
+							"raw": "http://localhost:{{daprPort}}/v1.0/publish/bulk/:pubsubname/:topic",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"publish",
 								"bulk",
 								":pubsubname",
@@ -12385,7 +12431,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"data\": {{data}},\n\t\"schedule\": \"{{schedule}}\",\n\t\"dueTime\": \"{{dueTime}}\",\n\t\"repeats\": \"{{repeats}}\",\n\t\"ttl\": \"{{ttl}}\"\n}",
+							"raw": "{\"data\": \"some data\", \"schedule\": \"@every 1m\", \"dueTime\": \"30s\", \"repeats\": 5, \"ttl\": \"1h\", \"overwrite\": false, \"failure_policy\": {\"constant\": {\"max_retries\": 3, \"interval\": \"10s\"}}}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -12412,7 +12458,7 @@
 								}
 							]
 						},
-						"description": "Schedule a job with a name."
+						"description": "Schedules a job. At least one of `schedule` or `dueTime` must be provided.\\n\\n**schedule** supports systemd cron format (6 fields) and shortcuts: `@every`, `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`.\\n\\n**failure_policy** can be `constant` (with `max_retries` and `interval`) or `drop`.\\n\\n**overwrite** controls whether an existing job with the same name is overwritten (default: true)."
 					},
 					"response": [
 						{
@@ -12976,7 +13022,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"inputs\": [\n    {\n      \"content\": \"{{content}}\",\n      \"role\": \"{{role}}\",\n      \"scrubPII\": \"{{scrubPII}}\"\n    }\n  ],\n  \"cacheTTL\": \"{{cacheTTL}}\",\n  \"scrubPII\": \"{{scrubPII}}\",\n  \"temperature\": {{temperature}},\n  \"metadata\": {{metadata}}\n}",
+							"raw": "{\"contextId\": \"\", \"inputs\": [{\"messages\": [{\"ofUser\": {\"content\": [{\"text\": \"What is Dapr?\"}]}}], \"scrubPii\": false}], \"parameters\": {}, \"metadata\": {\"model\": \"gpt-4-turbo\"}, \"scrubPii\": false, \"temperature\": 0.7, \"tools\": [{\"function\": {\"name\": \"get_weather\", \"description\": \"Get the weather for a location\", \"parameters\": {\"type\": \"object\", \"properties\": {\"location\": {\"type\": \"string\", \"description\": \"The city name\"}}}}}], \"toolChoice\": \"auto\", \"responseFormat\": {}, \"promptCacheRetention\": \"\"}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -12984,14 +13030,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/conversation/:llm-name/converse",
+							"raw": "http://localhost:{{daprPort}}/v1.0-alpha2/conversation/:llm-name/converse",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0-alpha2",
 								"conversation",
 								":llm-name",
 								"converse"
@@ -13004,7 +13050,7 @@
 								}
 							]
 						},
-						"description": "This endpoint lets you converse with LLMs."
+						"description": "Converse with an LLM component.\\n\\nThe v1.17 API (alpha2) introduces a structured message format with message types: `ofDeveloper`, `ofSystem`, `ofUser`, `ofAssistant`, `ofTool`.\\n\\nSupports tool calling via `tools` and `toolChoice` (auto, required, or specific tool name), `responseFormat`, and `promptCacheRetention`."
 					},
 					"response": [
 						{
@@ -13162,6 +13208,57 @@
 							"cookie": [],
 							"responseTime": null,
 							"body": ""
+						},
+						{
+							"id": "e083b097-a1a3-6984-d3ba-fae6a3ae63f7",
+							"name": "202 Accepted (v1.17 format)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"contextId\": \"\", \"inputs\": [{\"messages\": [{\"ofUser\": {\"content\": [{\"text\": \"What is Dapr?\"}]}}], \"scrubPii\": false}], \"parameters\": {}, \"metadata\": {\"model\": \"gpt-4-turbo\"}, \"scrubPii\": false, \"temperature\": 0.7, \"tools\": [{\"function\": {\"name\": \"get_weather\", \"description\": \"Get the weather for a location\", \"parameters\": {\"type\": \"object\", \"properties\": {\"location\": {\"type\": \"string\", \"description\": \"The city name\"}}}}}], \"toolChoice\": \"auto\", \"responseFormat\": {}, \"promptCacheRetention\": \"\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{daprPort}}/v1.0-alpha2/conversation/:llm-name/converse",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{daprPort}}",
+									"path": [
+										"v1.0-alpha2",
+										"conversation",
+										":llm-name",
+										"converse"
+									],
+									"variable": [
+										{
+											"key": "llm-name",
+											"value": "{{llm-name}}",
+											"description": "The name of the LLM component.[See all available models](https://docs.dapr.io/reference/components-reference/supported-conversation/)"
+										}
+									]
+								},
+								"description": "Converse with an LLM component.\\n\\nThe v1.17 API (alpha2) introduces a structured message format with message types: `ofDeveloper`, `ofSystem`, `ofUser`, `ofAssistant`, `ofTool`.\\n\\nSupports tool calling via `tools` and `toolChoice` (auto, required, or specific tool name), `responseFormat`, and `promptCacheRetention`."
+							},
+							"status": "Accepted",
+							"code": 202,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"value": "application/json",
+									"key": "Content-Type"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\"outputs\": [{\"choices\": [{\"finishReason\": \"stop\", \"message\": {\"content\": \"Dapr is a distributed application runtime that helps developers build resilient, microservice-based applications.\"}}], \"model\": \"gpt-4-turbo\", \"usage\": {\"promptTokens\": 12, \"completionTokens\": 18, \"totalTokens\": 30}}]}"
 						}
 					]
 				}
