@@ -10953,7 +10953,7 @@
 								}
 							]
 						},
-						"description": "Start a workflow instance with the given name and optionally, an instance ID.\n\nNote that workflow instance IDs can only contain alphanumeric characters, underscores, and dashes."
+						"description": "Start a workflow instance with the given name and optionally, an instance ID.\n\nWorkflow instance IDs can only contain alphanumeric characters, underscores, and dashes.\n\n> **Important (v1.18):** An instance ID can only be reused once the existing workflow with that ID, **and every child workflow it created** (checked recursively), has reached a terminal state (`COMPLETED`, `FAILED`, or `TERMINATED`). Otherwise the request is rejected with a `409` conflict naming the workflow that is not yet terminal. To free up an instance ID unconditionally, first purge the workflow using the purge API.\n\n> **Note:** The Workflow HTTP API is deprecated and will eventually be removed.\n\n### URL parameters\n\n| Parameter | Description |\n| --- | --- |\n| `workflowComponentName` | Use `dapr` for Dapr Workflows |\n| `workflowName` | Identify the workflow type |\n| `instanceID` | (Optional) Unique value created for each run of a specific workflow |\n\n### Request content\n\nAny request content is passed to the workflow as input. The Dapr API passes the content as-is without attempting to interpret it.\n\n### HTTP response codes\n\n| Code | Description |\n| --- | --- |\n| `202` | Accepted |\n| `400` | Request was malformed |\n| `409` | A workflow with the given instance ID already exists and is not yet reusable (it, or one of its child workflows, is not in a terminal state) |\n| `500` | Request formatted correctly, error in Dapr code |"
 					},
 					"response": [
 						{
@@ -11152,6 +11152,70 @@
 							"cookie": [],
 							"responseTime": null,
 							"body": ""
+						},
+						{
+							"id": "2bb88981-fde4-05cf-aa46-fd862e1a9aef",
+							"name": "409 - Conflict (instance ID not reusable)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"{{key}}\": \"{{value}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:{{daprPort}}/v1.0/workflows/:workflowComponentName/:workflowName/start?instanceID={{instanceID}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "{{daprPort}}",
+									"path": [
+										"v1.0",
+										"workflows",
+										":workflowComponentName",
+										":workflowName",
+										"start"
+									],
+									"query": [
+										{
+											"key": "instanceID",
+											"value": "{{instanceID}}",
+											"description": "(Optional) Unique value created for each run of a specific workflow"
+										}
+									],
+									"variable": [
+										{
+											"key": "workflowComponentName",
+											"value": "{{workflowComponent}}",
+											"description": "Use dapr for Dapr Workflows"
+										},
+										{
+											"key": "workflowName",
+											"value": "{{workflow}}",
+											"description": "Identify the workflow type"
+										}
+									]
+								},
+								"description": "Start a workflow instance with the given name and optionally, an instance ID.\n\nWorkflow instance IDs can only contain alphanumeric characters, underscores, and dashes.\n\n> **Important (v1.18):** An instance ID can only be reused once the existing workflow with that ID, **and every child workflow it created** (checked recursively), has reached a terminal state (`COMPLETED`, `FAILED`, or `TERMINATED`). Otherwise the request is rejected with a `409` conflict naming the workflow that is not yet terminal. To free up an instance ID unconditionally, first purge the workflow using the purge API.\n\n> **Note:** The Workflow HTTP API is deprecated and will eventually be removed.\n\n### URL parameters\n\n| Parameter | Description |\n| --- | --- |\n| `workflowComponentName` | Use `dapr` for Dapr Workflows |\n| `workflowName` | Identify the workflow type |\n| `instanceID` | (Optional) Unique value created for each run of a specific workflow |\n\n### Request content\n\nAny request content is passed to the workflow as input. The Dapr API passes the content as-is without attempting to interpret it.\n\n### HTTP response codes\n\n| Code | Description |\n| --- | --- |\n| `202` | Accepted |\n| `400` | Request was malformed |\n| `409` | A workflow with the given instance ID already exists and is not yet reusable (it, or one of its child workflows, is not in a terminal state) |\n| `500` | Request formatted correctly, error in Dapr code |"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"value": "application/json",
+									"key": "Content-Type"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"errorCode\": \"ERR_START_WORKFLOW\",\n    \"message\": \"an active workflow with ID '12345678' already exists and is not in a terminal state\"\n}"
 						}
 					]
 				},
@@ -12439,14 +12503,14 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name",
+							"raw": "http://localhost:{{daprPort}}/v1.0/jobs/:name",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"jobs",
 								":name"
 							],
@@ -12458,7 +12522,7 @@
 								}
 							]
 						},
-						"description": "Schedules a job. At least one of `schedule` or `dueTime` must be provided.\\n\\n**schedule** supports systemd cron format (6 fields) and shortcuts: `@every`, `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`.\\n\\n**failure_policy** can be `constant` (with `max_retries` and `interval`) or `drop`.\\n\\n**overwrite** controls whether an existing job with the same name is overwritten (default: true)."
+						"description": "Schedules a job. At least one of `schedule` or `dueTime` must be provided.\n\n`schedule` supports systemd cron format (6 fields) and shortcuts: `@every`, `@yearly`, `@monthly`, `@weekly`, `@daily`, `@hourly`.\n\n`failure_policy` can be `constant` (with `max_retries` and `interval`) or `drop`.\n\n`overwrite` controls whether an existing job with the same name is overwritten (default: `true`).\n\nJobs are scheduled based on the clock of the server where the Scheduler service is running. The timestamp is not converted to UTC. Provide the timezone with the timestamp in RFC3339 format to specify which timezone the job should adhere to; if no timezone is provided, the server's local time is used.\n\n_Stable since Dapr v1.18 — the path moved from `/v1.0-alpha1/jobs` to `/v1.0/jobs`._"
 					},
 					"response": [
 						{
@@ -12626,14 +12690,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name",
+							"raw": "http://localhost:{{daprPort}}/v1.0/jobs/:name",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"jobs",
 								":name"
 							],
@@ -12645,7 +12709,7 @@
 								}
 							]
 						},
-						"description": "Get a job from its name."
+						"description": "Get a job from its name.\n\n_Stable since Dapr v1.18 — the path moved from `/v1.0-alpha1/jobs` to `/v1.0/jobs`._"
 					},
 					"response": [
 						{
@@ -12786,14 +12850,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:{{daprPort}}/v1.0-alpha1/jobs/:name",
+							"raw": "http://localhost:{{daprPort}}/v1.0/jobs/:name",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "{{daprPort}}",
 							"path": [
-								"v1.0-alpha1",
+								"v1.0",
 								"jobs",
 								":name"
 							],
@@ -12805,7 +12869,7 @@
 								}
 							]
 						},
-						"description": "Delete a named job."
+						"description": "Delete a named job.\n\n_Stable since Dapr v1.18 — the path moved from `/v1.0-alpha1/jobs` to `/v1.0/jobs`._"
 					},
 					"response": [
 						{
@@ -13022,7 +13086,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"contextId\": \"\", \"inputs\": [{\"messages\": [{\"ofUser\": {\"content\": [{\"text\": \"What is Dapr?\"}]}}], \"scrubPii\": false}], \"parameters\": {}, \"metadata\": {\"model\": \"gpt-4-turbo\"}, \"scrubPii\": false, \"temperature\": 0.7, \"tools\": [{\"function\": {\"name\": \"get_weather\", \"description\": \"Get the weather for a location\", \"parameters\": {\"type\": \"object\", \"properties\": {\"location\": {\"type\": \"string\", \"description\": \"The city name\"}}}}}], \"toolChoice\": \"auto\", \"responseFormat\": {}, \"promptCacheRetention\": \"\"}",
+							"raw": "{\n  \"inputs\": [\n    {\n      \"messages\": [\n        {\n          \"ofUser\": {\n            \"content\": [\n              {\n                \"text\": \"What is the weather like in San Francisco in celsius?\"\n              }\n            ]\n          }\n        }\n      ],\n      \"scrubPii\": false\n    }\n  ],\n  \"parameters\": {\n    \"max_tokens\": {\n      \"@type\": \"type.googleapis.com/google.protobuf.Int64Value\",\n      \"value\": \"100\"\n    },\n    \"model\": {\n      \"@type\": \"type.googleapis.com/google.protobuf.StringValue\",\n      \"value\": \"claude-3-5-sonnet-20240620\"\n    }\n  },\n  \"metadata\": {\n    \"user_id\": \"user-1234\",\n    \"session_id\": \"session-abcd\"\n  },\n  \"scrubPii\": false,\n  \"temperature\": 0.7,\n  \"tools\": [\n    {\n      \"function\": {\n        \"name\": \"get_weather\",\n        \"description\": \"Get the current weather for a location\",\n        \"parameters\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"location\": {\n              \"type\": \"string\",\n              \"description\": \"The city and state, e.g. San Francisco, CA\"\n            },\n            \"unit\": {\n              \"type\": \"string\",\n              \"enum\": [\"celsius\", \"fahrenheit\"],\n              \"description\": \"The temperature unit to use\"\n            }\n          },\n          \"required\": [\"location\"]\n        }\n      }\n    }\n  ],\n  \"toolChoice\": \"auto\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -13050,7 +13114,7 @@
 								}
 							]
 						},
-						"description": "Converse with an LLM component.\\n\\nThe v1.17 API (alpha2) introduces a structured message format with message types: `ofDeveloper`, `ofSystem`, `ofUser`, `ofAssistant`, `ofTool`.\\n\\nSupports tool calling via `tools` and `toolChoice` (auto, required, or specific tool name), `responseFormat`, and `promptCacheRetention`."
+						"description": "Converse with an LLM component.\n\nThe alpha2 API uses a structured message format with message types: `ofDeveloper`, `ofSystem`, `ofUser`, `ofAssistant`, `ofTool`. Supports tool calling via `tools` and `toolChoice`, plus `responseFormat` and `promptCacheRetention`.\n\n### Request body fields\n\n| Field | Description |\n| --- | --- |\n| `contextId` | The ID of an existing chat (like in ChatGPT). Optional |\n| `inputs` | Inputs for the conversation. Multiple inputs at one time are supported. Required |\n| `parameters` | Typed per-request overrides for provider-specific fields (for example `model`, `max_tokens`). Values are wrapped in `google.protobuf.Any`. Optional |\n| `metadata` | Up to 16 key-value pairs to attach to the conversation for structured tagging (for example `user_id`, `session_id`). **Not** a mechanism for overriding component configuration. Optional |\n| `scrubPii` | Boolean, enables obfuscation of sensitive information returned from the LLM. Optional |\n| `temperature` | Float controlling model temperature — consistency (0) to creativity (1). Optional |\n| `tools` | Registers the tools available to the LLM during the conversation. Optional |\n| `toolChoice` | Controls how the model may use tools. Optional |\n\n### toolChoice values\n\n- `none` — the model will not call any tool and instead generates a message (default when no tools are present)\n- `auto` — the model can pick between generating a message or calling one or more tools (default when tools are present)\n- `required` — requires one or more functions to be called\n- `{tool_name}` — forces the model to call a specific tool by name\n\n### Metadata semantics (changed in v1.18)\n\n`metadata` is a set of up to **16** key-value pairs attached to the conversation, mirroring OpenAI's `metadata` field. It is intended for storing structured information about the conversation such as user IDs, session IDs, or application-specific tags.\n\nIt is **not** a mechanism for overriding component configuration or passing authentication details such as API keys — provider credentials and connection settings belong in the component's YAML configuration (or a referenced secret). If you are migrating from older examples that passed `api_key` via `metadata`, move those values into the component configuration instead. Use `parameters` for typed per-request provider overrides.\n\n**Constraints:** max 16 pairs; keys up to 64 characters; values up to 512 characters.\n\nMetadata can also be passed as URL query parameters, prefixed with `metadata.`:\n\n```text\nPOST http://localhost:3500/v1.0-alpha2/conversation/openai/converse?metadata.user_id=user-1234\n```\n\nURL metadata parameters are merged with request body metadata; URL parameters take precedence if conflicts exist.\n\n### HTTP response codes\n\n| Code | Description |\n| --- | --- |\n| `202` | Accepted |\n| `400` | Request was malformed |\n| `500` | Request formatted correctly, error in Dapr code or underlying component |"
 					},
 					"response": [
 						{
@@ -13217,7 +13281,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\"contextId\": \"\", \"inputs\": [{\"messages\": [{\"ofUser\": {\"content\": [{\"text\": \"What is Dapr?\"}]}}], \"scrubPii\": false}], \"parameters\": {}, \"metadata\": {\"model\": \"gpt-4-turbo\"}, \"scrubPii\": false, \"temperature\": 0.7, \"tools\": [{\"function\": {\"name\": \"get_weather\", \"description\": \"Get the weather for a location\", \"parameters\": {\"type\": \"object\", \"properties\": {\"location\": {\"type\": \"string\", \"description\": \"The city name\"}}}}}], \"toolChoice\": \"auto\", \"responseFormat\": {}, \"promptCacheRetention\": \"\"}",
+									"raw": "{\n  \"inputs\": [\n    {\n      \"messages\": [\n        {\n          \"ofUser\": {\n            \"content\": [\n              {\n                \"text\": \"What is the weather like in San Francisco in celsius?\"\n              }\n            ]\n          }\n        }\n      ],\n      \"scrubPii\": false\n    }\n  ],\n  \"parameters\": {\n    \"max_tokens\": {\n      \"@type\": \"type.googleapis.com/google.protobuf.Int64Value\",\n      \"value\": \"100\"\n    },\n    \"model\": {\n      \"@type\": \"type.googleapis.com/google.protobuf.StringValue\",\n      \"value\": \"claude-3-5-sonnet-20240620\"\n    }\n  },\n  \"metadata\": {\n    \"user_id\": \"user-1234\",\n    \"session_id\": \"session-abcd\"\n  },\n  \"scrubPii\": false,\n  \"temperature\": 0.7,\n  \"tools\": [\n    {\n      \"function\": {\n        \"name\": \"get_weather\",\n        \"description\": \"Get the current weather for a location\",\n        \"parameters\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"location\": {\n              \"type\": \"string\",\n              \"description\": \"The city and state, e.g. San Francisco, CA\"\n            },\n            \"unit\": {\n              \"type\": \"string\",\n              \"enum\": [\"celsius\", \"fahrenheit\"],\n              \"description\": \"The temperature unit to use\"\n            }\n          },\n          \"required\": [\"location\"]\n        }\n      }\n    }\n  ],\n  \"toolChoice\": \"auto\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -13245,7 +13309,7 @@
 										}
 									]
 								},
-								"description": "Converse with an LLM component.\\n\\nThe v1.17 API (alpha2) introduces a structured message format with message types: `ofDeveloper`, `ofSystem`, `ofUser`, `ofAssistant`, `ofTool`.\\n\\nSupports tool calling via `tools` and `toolChoice` (auto, required, or specific tool name), `responseFormat`, and `promptCacheRetention`."
+								"description": "Converse with an LLM component.\n\nThe alpha2 API uses a structured message format with message types: `ofDeveloper`, `ofSystem`, `ofUser`, `ofAssistant`, `ofTool`. Supports tool calling via `tools` and `toolChoice`, plus `responseFormat` and `promptCacheRetention`.\n\n### Request body fields\n\n| Field | Description |\n| --- | --- |\n| `contextId` | The ID of an existing chat (like in ChatGPT). Optional |\n| `inputs` | Inputs for the conversation. Multiple inputs at one time are supported. Required |\n| `parameters` | Typed per-request overrides for provider-specific fields (for example `model`, `max_tokens`). Values are wrapped in `google.protobuf.Any`. Optional |\n| `metadata` | Up to 16 key-value pairs to attach to the conversation for structured tagging (for example `user_id`, `session_id`). **Not** a mechanism for overriding component configuration. Optional |\n| `scrubPii` | Boolean, enables obfuscation of sensitive information returned from the LLM. Optional |\n| `temperature` | Float controlling model temperature — consistency (0) to creativity (1). Optional |\n| `tools` | Registers the tools available to the LLM during the conversation. Optional |\n| `toolChoice` | Controls how the model may use tools. Optional |\n\n### toolChoice values\n\n- `none` — the model will not call any tool and instead generates a message (default when no tools are present)\n- `auto` — the model can pick between generating a message or calling one or more tools (default when tools are present)\n- `required` — requires one or more functions to be called\n- `{tool_name}` — forces the model to call a specific tool by name\n\n### Metadata semantics (changed in v1.18)\n\n`metadata` is a set of up to **16** key-value pairs attached to the conversation, mirroring OpenAI's `metadata` field. It is intended for storing structured information about the conversation such as user IDs, session IDs, or application-specific tags.\n\nIt is **not** a mechanism for overriding component configuration or passing authentication details such as API keys — provider credentials and connection settings belong in the component's YAML configuration (or a referenced secret). If you are migrating from older examples that passed `api_key` via `metadata`, move those values into the component configuration instead. Use `parameters` for typed per-request provider overrides.\n\n**Constraints:** max 16 pairs; keys up to 64 characters; values up to 512 characters.\n\nMetadata can also be passed as URL query parameters, prefixed with `metadata.`:\n\n```text\nPOST http://localhost:3500/v1.0-alpha2/conversation/openai/converse?metadata.user_id=user-1234\n```\n\nURL metadata parameters are merged with request body metadata; URL parameters take precedence if conflicts exist.\n\n### HTTP response codes\n\n| Code | Description |\n| --- | --- |\n| `202` | Accepted |\n| `400` | Request was malformed |\n| `500` | Request formatted correctly, error in Dapr code or underlying component |"
 							},
 							"status": "Accepted",
 							"code": 202,
@@ -13265,6 +13329,35 @@
 			],
 			"id": "b6a0fd6a-afd0-4281-bfec-0ec779d05405",
 			"description": "_The conversation API is currently in alpha._\n\nDapr provides an API to interact with Large Language Models (LLMs) and enables critical performance and security functionality with features like prompt caching and PII data obfuscation."
+		},
+		{
+			"name": "Shutdown sidecar",
+			"id": "231cbbed-4666-6fef-908b-6b0cafae57fe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:{{daprPort}}/v1.0/shutdown",
+				"description": "Triggers a graceful shutdown of the Dapr sidecar (`daprd`). This is the same shutdown path that runs when daprd receives a `SIGTERM`: input bindings and pub/sub subscriptions are closed, in-flight requests are allowed to complete (subject to `--dapr-graceful-shutdown-seconds`), reminders and components are flushed, and then the process exits.\n\n**Added in Dapr v1.18.**\n\n### Modes\n\n| Mode | When | Caveats |\n| --- | --- | --- |\n| Graceful (default) | Normal operator-driven shutdown, automated CI cleanup, a Kubernetes Job that needs daprd to exit cleanly | Bounded by `--dapr-graceful-shutdown-seconds` (default 5) and `--dapr-block-shutdown-duration`. The sidecar will not exit before the configured drain or block windows complete. |\n| Force | A sidecar that is wedged and not making drain progress, end-to-end tests that need a deterministic teardown | Exits via `os.Exit(1)`. Container orchestrators that treat non-zero exits as failures will see this as a crash. |\n\n### URL parameters\n\nThis endpoint takes no path or query parameters.\n\n### Request headers\n\n| Header | Required | Description |\n| --- | :---: | --- |\n| `Dapr-Force-Shutdown` | N | When present (any non-empty value), causes daprd to skip the graceful shutdown sequence and exit immediately via `os.Exit(1)` after flushing the HTTP response. Add this header manually when you need a force shutdown. |\n\n### Response\n\nA successful call returns HTTP `204 No Content`. The sidecar then begins shutting down asynchronously, so subsequent requests against the sidecar will start failing as services close. Do not depend on the response timing as a signal that shutdown has completed — use process or container lifecycle signals for that.\n\n### gRPC equivalent\n\n`dapr.proto.runtime.v1.Dapr/Shutdown` (GA at `v1`). The `dapr-force-shutdown` gRPC metadata key is equivalent to the HTTP header.\n\n### API allowlist\n\n`Shutdown` can be allowed or denied via the API allowlist using `shutdown` as the API name (HTTP: `v1.0`, gRPC: `v1`)."
+			},
+			"response": [
+				{
+					"id": "fbae8676-da2a-87c1-58ee-b076c6c92fd8",
+					"name": "204 - No Content",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:{{daprPort}}/v1.0/shutdown",
+						"description": "Triggers a graceful shutdown of the Dapr sidecar (`daprd`). This is the same shutdown path that runs when daprd receives a `SIGTERM`: input bindings and pub/sub subscriptions are closed, in-flight requests are allowed to complete (subject to `--dapr-graceful-shutdown-seconds`), reminders and components are flushed, and then the process exits.\n\n**Added in Dapr v1.18.**\n\n### Modes\n\n| Mode | When | Caveats |\n| --- | --- | --- |\n| Graceful (default) | Normal operator-driven shutdown, automated CI cleanup, a Kubernetes Job that needs daprd to exit cleanly | Bounded by `--dapr-graceful-shutdown-seconds` (default 5) and `--dapr-block-shutdown-duration`. The sidecar will not exit before the configured drain or block windows complete. |\n| Force | A sidecar that is wedged and not making drain progress, end-to-end tests that need a deterministic teardown | Exits via `os.Exit(1)`. Container orchestrators that treat non-zero exits as failures will see this as a crash. |\n\n### URL parameters\n\nThis endpoint takes no path or query parameters.\n\n### Request headers\n\n| Header | Required | Description |\n| --- | :---: | --- |\n| `Dapr-Force-Shutdown` | N | When present (any non-empty value), causes daprd to skip the graceful shutdown sequence and exit immediately via `os.Exit(1)` after flushing the HTTP response. Add this header manually when you need a force shutdown. |\n\n### Response\n\nA successful call returns HTTP `204 No Content`. The sidecar then begins shutting down asynchronously, so subsequent requests against the sidecar will start failing as services close. Do not depend on the response timing as a signal that shutdown has completed — use process or container lifecycle signals for that.\n\n### gRPC equivalent\n\n`dapr.proto.runtime.v1.Dapr/Shutdown` (GA at `v1`). The `dapr-force-shutdown` gRPC metadata key is equivalent to the HTTP header.\n\n### API allowlist\n\n`Shutdown` can be allowed or denied via the API allowlist using `shutdown` as the API name (HTTP: `v1.0`, gRPC: `v1`)."
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"responseTime": null,
+					"body": ""
+				}
+			]
 		}
 	]
 }
